@@ -51,7 +51,19 @@ src/main/java/edu/eci/arsw/blueprints
 
 ### 1. Familiarización con el código base
 - Revisa el paquete `model` con las clases `Blueprint` y `Point`.  
+  ![img/img.png](C:\Users\manuel.guarnizo-g\Downloads\ARWS-3-Guarnizo\img\img.png)
+- Esta clase representa un diseño que contine una cantidad de puntos donde se puede tambien poner el autor y el nombre 
+  del blueprint
+- Cabe aclarar que los clientes no pueden modificar directamente la lista es por medio de usar cosas como unmodificable 
+  en el metodo que permite obtener una vista de de la lista.
+- tiene un metodo para añadir puntos que es la unica manera de cambiar la lista
+
+![img.png](img/img.png)
+- Tambien tenemos la clase point que componet las lista de la clase blueprint esta clase punto tiene componentes
+  x, y que podemos asumir represntan un posición
+
 - Entiende la capa `persistence` con `InMemoryBlueprintPersistence`.  
+  
 - Analiza la capa `services` (`BlueprintsServices`) y el controlador `BlueprintsAPIController`.
 
 ### 2. Migración a persistencia en PostgreSQL
