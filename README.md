@@ -112,10 +112,13 @@ src/main/java/edu/eci/arsw/blueprints
 - Hacemos otras verificaciones
 - ![img_12.png](img_12.png)
 
-
 - Implementa un nuevo repositorio `PostgresBlueprintPersistence` que reemplace la versión en memoria. 
-- 
+- ![img_13.png](img_13.png)
+- esta podría ser una opción de PostgresBlueprintPersistence para reemplazar la de la memoria
 - Mantén el contrato de la interfaz `BlueprintPersistence`.  
+- ahora para mantener el contrato podemos poner esta:
+- ![img_14.png](img_14.png)
+- ![img_15.png](img_15.png)
 
 ### 3. Buenas prácticas de API REST
 - Cambia el path base de los controladores a `/api/v1/blueprints`.  
@@ -138,17 +141,49 @@ src/main/java/edu/eci/arsw/blueprints
     "data": { "author": "john", "name": "house", "points": ["..."] }
   }
   ```
+ - Implementamos el ApiResponse y modificamos el controller
+   ![img_16.png](img_16.png)
+ - ![img_17.png](img_17.png)
+
+ - Ejemplos de uso:
+ - ![img_18.png](img_18.png)
+ - ![img_19.png](img_19.png)
+ - podemos verlo en la base de datos
+ - ![img_20.png](img_20.png)
+
 
 ### 4. OpenAPI / Swagger
 - Configura `springdoc-openapi` en el proyecto.  
 - Expón documentación automática en `/swagger-ui.html`.  
 - Anota endpoints con `@Operation` y `@ApiResponse`.
 
+- Aca hay un ejemplo de como anotamos endpoints con operation o Api response
+-![img_21.png](img_21.png)
+- A continuación exponemos la documentación automatica de swagger
+- ![img_22.png](img_22.png)
+- ![img_23.png](img_23.png)
+-![img_24.png](img_24.png)
+- Aca tenemos la documentación de los endpoints y de algunos esquemas
+
 ### 5. Filtros de *Blueprints*
 - Implementa filtros:
   - **RedundancyFilter**: elimina puntos duplicados consecutivos.  
   - **UndersamplingFilter**: conserva 1 de cada 2 puntos.  
 - Activa los filtros mediante perfiles de Spring (`redundancy`, `undersampling`).  
+- ![img_25.png](img_25.png)
+- Primero creamos el perfil de redundancia que nos va a ayudar con puntos duplicados
+- ![img_26.png](img_26.png)
+- Y el UndersamplingFilter que conserva 1 de cada 2
+- ![img_27.png](img_27.png)
+- modificamos el service
+- ![img_28.png](img_28.png)
+- En el properties lo ponemos para probar primero el filtro de redundancia
+- y el ejemplo con redundancia queda asi:
+- ![img_29.png](img_29.png)
+- como podemos ver  devuelve solo los tres sin repeticiones osea que el filtro funciona
+- Ya para Undersamplingfilter
+- ![img_30.png](img_30.png)
+- Vemos como efectivamente va de 0,0 a 2,2  despues a 4,4 y asi como se le indica en el filtro
 
 ---
 

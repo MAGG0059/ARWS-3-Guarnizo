@@ -8,25 +8,30 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Elimina puntos consecutivos duplicados (x,y) para reducir redundancia.
- * Perfil: "redundancy"
- */
 @Component
 @Profile("redundancy")
 public class RedundancyFilter implements BlueprintsFilter {
+
     @Override
     public Blueprint apply(Blueprint bp) {
-        List<Point> in = bp.getPoints();
-        if (in.isEmpty()) return bp;
-        List<Point> out = new ArrayList<>();
-        Point prev = null;
-        for (Point p : in) {
-            if (prev == null || !(prev.x()==p.x() && prev.y()==p.y())) {
-                out.add(p);
-                prev = p;
+        List<Point> originalPoints = bp.getPoints();
+        List<Point> filteredPoints = new ArrayList<>();
+
+        if (originalPoints.isEmpty()) {
+            return new Blueprint(bp.getAuthor(), bp.getName(), filteredPoints);
+        }
+
+        Point previous = originalPoints.get(0);
+        filteredPoints.add(previous);
+
+        for (int i = 1; i < originalPoints.size(); i++) {
+            Point current = originalPoints.get(i);
+            if (!current.equals(previous)) {
+                filteredPoints.add(current);
+                previous = current;
             }
         }
-        return new Blueprint(bp.getAuthor(), bp.getName(), out);
+
+        return new Blueprint(bp.getAuthor(), bp.getName(), filteredPoints);
     }
 }
